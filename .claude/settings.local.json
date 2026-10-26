@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Read(//c/Users/eberl/.claude/skills/synced/3fa995b3-8873-4a7a-86e4-6430e72dacce_e57845ea-d99b-43a2-bdc1-fd433d2ccc0a/unal-piezas/assets/**)"
+    ]
+  }
+}
