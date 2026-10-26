@@ -30,7 +30,8 @@
   main{position:fixed;top:var(--hh);bottom:var(--fh);left:0;right:0;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
   section.slide{min-height:100%;scroll-snap-align:start;padding:clamp(18px,3vw,36px) clamp(18px,5vw,64px);display:flex;flex-direction:column;justify-content:center;gap:18px}
   section.slide h2{font-family:var(--serif);font-size:clamp(22px,2.8vw,34px);margin:0;color:var(--cafe)}
-  .lead{margin:0;color:var(--muted);font-size:clamp(14px,1.5vw,18px);max-width:70ch}
+  section.slide h2{text-wrap:balance}
+  .lead{text-wrap:pretty;margin:0;color:var(--muted);font-size:clamp(14px,1.5vw,18px);max-width:70ch}
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
   .kpi{background:var(--blanco);border-radius:12px;padding:16px 18px;border-left:6px solid var(--azul)}
@@ -102,7 +103,7 @@
 
   <!-- 1. Portada / resumen -->
   <section class="slide" id="s1">
-    <h2>Panorama general - Programa Gestión Cultural y Comunicativas</h2>
+    <h2>Panorama general · Gestión Cultural y Comunicativa</h2>
     <p class="lead">Consolidado de los registros de prácticas y trabajos de grado en modalidad pasantía de la sede La Paz.</p>
     <div class="kpis" id="kpis"></div>
     <p class="fuente">Fuente: hojas de seguimiento 2025-2S (pasantías y prácticas), 2026-1S (externos e internos) y 2026-2S (externos e internos). Datos agregados, sin información personal.</p>
