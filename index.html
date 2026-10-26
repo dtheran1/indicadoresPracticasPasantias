@@ -84,6 +84,7 @@
   .nav button.on{background:var(--cafe)}
   .nav button:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
 
+  @media (max-width:900px){ main{scroll-snap-type:y proximity} }
   @media (max-width:600px){ .kpis{grid-template-columns:1fr 1fr} .kpi b{font-size:30px} .nav{display:none} .hbar{grid-template-columns:1fr 36px} .hbar .track{grid-column:1/-1;order:3} }
   @media print{ body{overflow:visible} main,header.top,footer.bottom,.nav{position:static} section.slide{min-height:auto;break-after:page} }
 </style>
