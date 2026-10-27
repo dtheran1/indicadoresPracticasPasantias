@@ -48,11 +48,17 @@
   #s1{position:relative;isolation:isolate}
   #s1::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/patron-iconos.png) center/cover;opacity:.07;mask-image:linear-gradient(to top,#000,transparent 50%);-webkit-mask-image:linear-gradient(to top,#000,transparent 50%)}
   #s1 .escudo-hero{position:absolute;top:clamp(16px,4vh,40px);right:clamp(18px,5vw,64px);height:clamp(120px,24vh,200px);width:auto}
+  /* láminas pares con fondo más oscuro a todo el ancho; el remate es un ícono de la plantilla, detrás de las tarjetas */
+  section.slide{position:relative;isolation:isolate}
+  section.slide:nth-child(even){background:#E4EEE7;box-shadow:0 0 0 100vmax #E4EEE7;clip-path:inset(0 -100vmax)}
+  .remate{position:absolute;right:clamp(18px,5vw,64px);bottom:14px;height:clamp(80px,15vh,140px);width:auto;z-index:-1;opacity:.8;pointer-events:none}
   .lead{text-wrap:pretty;margin:0;color:var(--muted);font-size:clamp(15px,1.5vw,18px);max-width:68ch}
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
   .kpi,.card{background:var(--surface);border:1px solid var(--line)}
-  .kpi{border-radius:var(--radius);padding:16px 18px}
+  .kpi{border-radius:var(--radius);padding:16px 18px;transition:transform .2s ease-out,box-shadow .2s}
+  .kpi:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(27,29,72,.14)}
+  .card{transition:border-color .2s} .card:hover{border-color:var(--azul)}
   .kpi b{display:block;font-family:var(--serif);font-size:clamp(32px,4vw,52px);line-height:1;color:var(--azul);font-weight:700;font-variant-numeric:tabular-nums}
   .kpi span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
   .kpi.cafe{background:var(--azul);border-color:var(--azul)} .kpi.cafe b,.kpi.cafe span{color:#fff}
@@ -66,31 +72,48 @@
   /* columnas apiladas */
   .cols{display:flex;align-items:flex-end;justify-content:space-around;gap:16px;height:260px;padding-top:8px}
   .col{flex:1;max-width:130px;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
-  .col .stack{width:100%;display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden}
-  .seg{display:grid;place-items:center;font-weight:700;font-size:14px;min-height:0}
+  .col .stack{width:100%;display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden;transform-origin:bottom;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+  .slide.in .stack{transform:none}
+  .seg{display:grid;place-items:center;font-weight:700;font-size:14px;min-height:0;cursor:default;transition:opacity .15s,filter .15s}
+  .cols:has(.seg:hover) .seg:not(:hover){opacity:.45} .seg:hover{filter:brightness(1.1)}
   .seg.a{background:var(--cafe);color:#fff} .seg.b{background:var(--azul-claro);color:var(--on3)}
-  .col .tot{font-weight:700;font-size:18px;margin-bottom:4px}
+  .col .tot{font-weight:700;font-size:18px;margin-bottom:4px;opacity:0;transition:opacity .5s ease-out calc(var(--d,0s) + .5s)}
+  .slide.in .tot{opacity:1}
   .col .lab{margin-top:8px;font-size:13px;color:var(--muted);text-align:center}
   .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;margin-top:12px}
   .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 
   /* barras horizontales */
-  .hbar{display:grid;grid-template-columns:minmax(110px,32%) 1fr 38px;align-items:center;gap:10px;margin:9px 0;font-size:14px}
+  .hbar{display:grid;grid-template-columns:minmax(110px,32%) 1fr 38px;align-items:center;gap:10px;margin:9px 0;font-size:14px;cursor:default;transition:opacity .15s}
+  .card:has(.hbar:hover) .hbar:not(:hover){opacity:.4}
   .hbar .track{background:var(--track);border-radius:4px;height:22px;overflow:hidden}
-  .hbar .fill{height:100%;background:var(--azul);border-radius:4px}
+  .hbar .fill{height:100%;background:var(--azul);border-radius:4px;transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s),filter .15s}
+  .slide.in .fill{transform:none} .hbar:hover .fill{filter:brightness(1.12)}
   .hbar .fill.cafe{background:var(--cafe)} .hbar .fill.claro{background:var(--azul-claro)} .hbar .fill.rojo{background:var(--rojo)}
   .hbar .v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 
   /* interno / externo */
-  .pct{display:flex;height:34px;border-radius:6px;overflow:hidden;margin:4px 0 2px}
-  .pct div{display:grid;place-items:center;font-weight:700;font-size:13px}
+  .pct{display:flex;height:34px;border-radius:6px;overflow:hidden;margin:4px 0 2px;clip-path:inset(0 100% 0 0);transition:clip-path .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+  .slide.in .pct{clip-path:inset(0)}
+  .pct div{display:grid;place-items:center;font-weight:700;font-size:13px;cursor:default;transition:filter .15s}
+  .pct div:hover{filter:brightness(1.12)}
   .pct .i{background:var(--cafe);color:#fff} .pct .e{background:var(--azul-claro);color:var(--on3)}
   .row-lab{font-size:13px;color:var(--muted);margin-top:12px}
 
   /* dona */
   .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
   .donut{width:170px;height:170px;border-radius:50%;position:relative;flex:none}
-  .donut::after{content:attr(data-c);position:absolute;inset:34px;background:var(--surface);border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:28px;font-weight:700;color:var(--azul);line-height:1}
+  .donut svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+  .donut circle{fill:none;stroke-width:16;stroke-dasharray:0 240;cursor:default;transition:stroke-dasharray 1s cubic-bezier(.2,.7,.2,1) var(--d,0s),stroke-width .15s,opacity .15s}
+  .slide.in .donut circle{stroke-dasharray:var(--len) 240}
+  .donut.h circle{opacity:.35} .donut.h circle.on{opacity:1;stroke-width:20}
+  .donut .c{position:absolute;inset:34px;display:grid;place-content:center;text-align:center;pointer-events:none;line-height:1}
+  .donut .c b{font-family:var(--serif);font-size:28px;color:var(--azul)}
+  .donut .c small{font-size:11px;color:var(--muted);margin-top:4px}
+  #donutLeg div{cursor:default;padding:2px 6px;margin:2px -6px;border-radius:4px;transition:background .15s} #donutLeg div:hover{background:var(--track)}
+
+  #tip{position:fixed;z-index:20;pointer-events:none;background:var(--verde-oscuro);color:#fff;font-size:13px;line-height:1.35;padding:6px 10px;border-radius:6px;max-width:260px;opacity:0;transition:opacity .1s;transform:translate(-50%,calc(-100% - 12px))}
+  #tip.on{opacity:1}
 
   .alert{border:1px solid var(--rojo);background:#FDF1EE;border-radius:var(--radius);padding:16px 18px}
   .alert h3{margin:0 0 8px;color:var(--rojo);font-size:16px}
@@ -108,10 +131,11 @@
   .nav button:hover::after,.nav button:focus-visible::after{opacity:1}
 
   @media (max-width:900px){ main{scroll-snap-type:y proximity} }
-  @media (max-width:900px){ #s1 .escudo-hero{display:none} }
+  @media (max-width:900px){ #s1 .escudo-hero,.remate{display:none} }
   @media (max-width:600px){ .kpis{grid-template-columns:1fr 1fr} .kpi b{font-size:30px} .nav,header.top small{display:none} footer .escuela{font-size:11px} .hbar{grid-template-columns:1fr 36px} .hbar .track{grid-column:1/-1;order:3} }
-  @media (prefers-reduced-motion:reduce){ main{scroll-behavior:auto} #progress{transition:none} }
-  @media print{ body{overflow:visible} main,header.top,footer.bottom,.nav{position:static} #progress{display:none} section.slide{min-height:auto;break-after:page} }
+  @media (prefers-reduced-motion:reduce){ main{scroll-behavior:auto} #progress,.stack,.tot,.fill,.pct,.donut circle,.kpi{transition:none} }
+  @media print{ .stack,.fill{transform:none!important} .tot{opacity:1!important} .pct{clip-path:none!important} .donut circle{stroke-dasharray:var(--len) 240!important} #tip{display:none}
+    body{overflow:visible} main,header.top,footer.bottom,.nav{position:static} #progress{display:none} section.slide{min-height:auto;break-after:page} }
 </style>
 </head>
 <body>
@@ -165,13 +189,14 @@
 
   <!-- 3. Vinculación -->
   <section class="slide" id="s3">
+    <img class="remate" src="assets/remate-jaguar.png" alt="">
     <h2>Mecanismos de vinculación</h2>
     <p class="lead">Cómo se formalizó la vinculación de los 35 estudiantes del periodo 2026-1S.</p>
     <div class="grid2">
       <div class="card">
         <h3>2026-1S · Distribución</h3>
         <div class="donut-wrap">
-          <div class="donut" id="donut" data-c="35" role="img" aria-label="35 vinculaciones: 18 Resolución 1142, 16 Convenio P&P, 1 contrato de aprendizaje"></div>
+          <div class="donut" id="donut" role="img" aria-label="35 vinculaciones: 18 Resolución 1142, 16 Convenio P&P, 1 contrato de aprendizaje"></div>
           <div id="donutLeg"></div>
         </div>
       </div>
@@ -185,6 +210,7 @@
 
   <!-- 4. Notas -->
   <section class="slide" id="s4">
+    <img class="remate" src="assets/remate-caldas.png" alt="">
     <h2>Desempeño académico</h2>
     <p class="lead">Notas finales registradas en prácticas 2025-2S y en pasantías y prácticas 2026-1S (49 calificaciones).</p>
     <div class="grid2">
@@ -202,6 +228,7 @@
 
   <!-- 5. Permanencia -->
   <section class="slide" id="s5">
+    <img class="remate" src="assets/remate-edificio1.png" alt="" style="height:clamp(50px,10vh,90px)">
     <h2>Culminación y novedades</h2>
     <div class="grid2">
       <div class="card">
@@ -222,6 +249,7 @@
 
   <!-- 6. 2026-2S -->
   <section class="slide" id="s6">
+    <img class="remate" src="assets/remate-edificio2.png" alt="" style="height:clamp(40px,8vh,72px)">
     <h2>Periodo en curso · 2026-2S</h2>
     <div class="kpis" id="kpis2"></div>
     <div class="grid2">
@@ -239,6 +267,7 @@
 
 </main>
 
+<div id="tip" role="tooltip"></div>
 <nav class="nav" id="nav" aria-label="Diapositivas"></nav>
 
 <footer class="bottom">
@@ -260,45 +289,64 @@ const notas = [["5,0",23,"cafe"],["4,5 – 4,9",20,""],["4,0 – 4,4",4,"claro"]
 const dep   = [["Biblioteca",7],["Bienestar · Salud",5],["Semillero PHI",4],["Lab. Comunicación Audiovisual",2],["Bienestar · Acompañamiento",1]];
 
 const $ = id => document.getElementById(id);
-const kpi = (n,l,c="") => `<div class="kpi ${c}"><b>${n}</b><span>${l}</span></div>`;
-const hbar = (l,v,max,c="") => `<div class="hbar"><span>${l}</span><div class="track"><div class="fill ${c}" style="width:${v/max*100}%"></div></div><span class="v">${v}</span></div>`;
+const esc = s => String(s).replace(/"/g,"&quot;");
+const pc = (v,t) => Math.round(v/t*100) + " %";
+const kpi = (n,l,c="",tip="") => `<div class="kpi ${c}"${tip?` data-tip="${esc(tip)}"`:""}><b${/^\d+$/.test(n)?` data-n="${n}">0`:`>${n}`}</b><span>${l}</span></div>`;
+let nb = 0; // escalona la entrada de las barras
+const hbar = (l,v,max,c="",tot=max) => `<div class="hbar" data-tip="${esc(l)}: ${v} de ${tot} (${pc(v,tot)})" style="--d:${(nb++%6)*.08}s"><span>${l}</span><div class="track"><div class="fill ${c}" style="width:${v/max*100}%"></div></div><span class="v">${v}</span></div>`;
 
 /* ---------- KPIs ---------- */
+const sumP = k => periodos.map(x=>x[k]).join(" · ");
 $("kpis").innerHTML =
-  kpi(total,"registros en 3 periodos","cafe") +
-  kpi(periodos.reduce((s,x)=>s+x.practicas,0),"prácticas","") +
-  kpi(periodos.reduce((s,x)=>s+x.pasantias,0),"pasantías / trabajos de grado","") +
-  kpi("4,75","nota promedio (49 notas)","") +
-  kpi(4,"casos que no culminaron","rojo");
+  kpi(total,"registros en 3 periodos","cafe","Por periodo: "+periodos.map(x=>`${x.p}: ${x.practicas+x.pasantias}`).join(" · ")) +
+  kpi(periodos.reduce((s,x)=>s+x.practicas,0),"prácticas","","2025-2S, 2026-1S y 2026-2S: "+sumP("practicas")) +
+  kpi(periodos.reduce((s,x)=>s+x.pasantias,0),"pasantías / trabajos de grado","","2025-2S, 2026-1S y 2026-2S: "+sumP("pasantias")) +
+  kpi("4,75","nota promedio (49 notas)","","16 notas de 2025-2S (4,86) y 33 de 2026-1S (4,69)") +
+  kpi(4,"casos que no culminaron","rojo","2025-2S: 2 · 2026-1S: 2 (solicitudes de cancelación)");
 
 /* ---------- Columnas apiladas ---------- */
 const maxT = Math.max(...periodos.map(x=>x.practicas+x.pasantias));
-$("cols").innerHTML = periodos.map(x=>{
+$("cols").innerHTML = periodos.map((x,i)=>{
   const t = x.practicas+x.pasantias, H = 190;
-  return `<div class="col"><div class="tot">${t}</div>
+  return `<div class="col" style="--d:${i*.15}s"><div class="tot">${t}</div>
     <div class="stack" style="height:${t/maxT*H}px">
-      <div class="seg a" style="height:${x.practicas/t*100}%">${x.practicas}</div>
-      <div class="seg b" style="height:${x.pasantias/t*100}%">${x.pasantias}</div>
+      <div class="seg a" data-tip="${x.p} · prácticas: ${x.practicas} de ${t} (${pc(x.practicas,t)})" style="height:${x.practicas/t*100}%">${x.practicas}</div>
+      <div class="seg b" data-tip="${x.p} · pasantías / trabajo de grado: ${x.pasantias} de ${t} (${pc(x.pasantias,t)})" style="height:${x.pasantias/t*100}%">${x.pasantias}</div>
     </div><div class="lab">${x.p}</div></div>`;
 }).join("");
 
 /* ---------- Interno / externo ---------- */
-$("pct").innerHTML = periodos.map(x=>{
-  const t = x.interno+x.externo, i = Math.round(x.interno/t*100);
+$("pct").innerHTML = periodos.map((x,i)=>{
+  const t = x.interno+x.externo, i100 = Math.round(x.interno/t*100);
   return `<div class="row-lab">${x.p} · ${t} estudiantes</div>
-    <div class="pct"><div class="i" style="width:${x.interno/t*100}%">${i} %</div><div class="e" style="width:${x.externo/t*100}%">${100-i} %</div></div>`;
+    <div class="pct" style="--d:${i*.15}s"><div class="i" data-tip="${x.p} · interno (UNAL): ${x.interno} de ${t}" style="width:${x.interno/t*100}%">${i100} %</div><div class="e" data-tip="${x.p} · externo: ${x.externo} de ${t}" style="width:${x.externo/t*100}%">${100-i100} %</div></div>`;
 }).join("");
 
-/* ---------- Vinculación ---------- */
+/* ---------- Vinculación: dona SVG con hover sincronizado con la leyenda ---------- */
 const cols = {cafe:"var(--cafe)","":"var(--azul)",claro:"var(--azul-claro)"};
-let acc = 0;
-const stops = vinc.map(([l,v,c])=>{const a=acc/35*100; acc+=v; return `${cols[c]} ${a}% ${acc/35*100}%`;}).join(",");
-$("donut").style.background = `conic-gradient(${stops})`;
-$("donutLeg").innerHTML = vinc.map(([l,v,c])=>`<div style="margin:6px 0"><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${cols[c]};margin-right:8px"></i>${l}: <b>${v}</b></div>`).join("");
-$("vinc").innerHTML = vinc.map(([l,v,c])=>hbar(l,v,18,c)).join("");
+const C = 2*Math.PI*38;
+let off = 0;
+const arcs = vinc.map(([l,v,c],i)=>{
+  const len = v/35*C, el = `<circle data-k="${i}" cx="50" cy="50" r="38" stroke="${cols[c]}" data-tip="${esc(l)}: ${v} de 35 (${pc(v,35)})" style="--len:${len.toFixed(2)};stroke-dashoffset:${(-off).toFixed(2)};--d:${i*.12}s"/>`;
+  off += len; return el;
+}).join("");
+$("donut").innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true">${arcs}</svg><div class="c"><b id="dn">35</b><small id="dl">vinculaciones</small></div>`;
+$("donutLeg").innerHTML = vinc.map(([l,v,c],i)=>`<div data-k="${i}" data-tip="${esc(l)}: ${v} de 35 (${pc(v,35)})"><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${cols[c]};margin-right:8px"></i>${l}: <b>${v}</b></div>`).join("");
+const donut = $("donut"), arcEls = [...donut.querySelectorAll("circle")];
+const hiK = k => {
+  donut.classList.toggle("h", k!=null);
+  arcEls.forEach((e,i)=>e.classList.toggle("on", i===k));
+  $("dn").textContent = k==null ? 35 : vinc[k][1];
+  $("dl").textContent = k==null ? "vinculaciones" : vinc[k][0];
+};
+document.querySelectorAll("#donut [data-k],#donutLeg [data-k]").forEach(e=>{
+  e.addEventListener("mouseenter",()=>hiK(+e.dataset.k));
+  e.addEventListener("mouseleave",()=>hiK(null));
+});
+$("vinc").innerHTML = vinc.map(([l,v,c])=>hbar(l,v,18,c,35)).join("");
 
 /* ---------- Notas ---------- */
-$("notas").innerHTML = notas.map(([l,v,c])=>hbar(l,v,23,c)).join("");
+$("notas").innerHTML = notas.map(([l,v,c])=>hbar(l,v,23,c,49)).join("");
 $("prom").innerHTML =
   kpi("4,86","Prácticas 2025-2S (16 notas)","cafe") +
   kpi("4,69","2026-1S (33 notas)","") ;
@@ -311,17 +359,31 @@ $("cierre").innerHTML =
 
 /* ---------- 2026-2S ---------- */
 $("kpis2").innerHTML =
-  kpi(34,"estudiantes registrados","cafe") +
-  kpi(15,"escenarios externos","") +
-  kpi(19,"escenarios internos","") +
+  kpi(34,"estudiantes registrados","cafe","22 prácticas y 12 pasantías / trabajos de grado") +
+  kpi(15,"escenarios externos","","44 % del periodo") +
+  kpi(19,"escenarios internos","","56 % del periodo") +
   kpi("19/19","reportados a Dirección Académica","") +
-  kpi("14/19","registros internos confirmados","");
-$("dep").innerHTML = dep.map(([l,v])=>hbar(l,v,7,"claro")).join("");
+  kpi("14/19","registros internos confirmados","","5 registros internos pendientes de confirmar");
+$("dep").innerHTML = dep.map(([l,v])=>hbar(l,v,7,"claro",19)).join("");
 $("estado").innerHTML =
   hbar("Registros internos confirmados",14,19,"cafe") +
   hbar("Registros internos pendientes",5,19,"rojo") +
   hbar("Tutor por indicar",1,19,"rojo") +
   hbar("Actas de compromiso externas pendientes",2,15,"rojo");
+
+/* ---------- Tooltip único para todo lo que tenga data-tip ---------- */
+const tip = $("tip");
+const mv = e => {
+  const w = tip.offsetWidth/2;
+  tip.style.left = Math.min(Math.max(e.clientX, w+8), innerWidth-w-8) + "px";
+  tip.style.top = e.clientY + "px";
+};
+document.addEventListener("mouseover",e=>{
+  const t = e.target.closest("[data-tip]");
+  tip.classList.toggle("on", !!t);
+  if(t){ tip.textContent = t.dataset.tip; mv(e); }
+});
+document.addEventListener("mousemove",e=>{ if(tip.classList.contains("on")) mv(e); });
 
 /* ---------- Navegación por diapositivas ---------- */
 const main = $("main"), slides = [...document.querySelectorAll(".slide")], nav = $("nav");
@@ -349,6 +411,26 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Home"){e.preventDefault();go(0);}
   if(e.key==="End"){e.preventDefault();go(slides.length-1);}
 });
+
+/* ---------- Entrada de cada lámina: barras, columnas, dona y conteo de números ---------- */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const count = (el,instant) => {
+  const n = +el.dataset.n;
+  if(instant){ el.textContent = n; el.dataset.done = 1; return; }
+  const t0 = performance.now();
+  const f = t => { if(el.dataset.done) return; const p = Math.min(1,(t-t0)/900); el.textContent = Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f); else el.dataset.done = 1; };
+  requestAnimationFrame(f);
+};
+const reveal = (s,instant) => {
+  if(s.classList.contains("in") && !instant) return;
+  s.classList.add("in");
+  s.querySelectorAll("[data-n]").forEach(el=>count(el,instant||reduce));
+};
+// umbral bajo: en móvil una lámina más alta que la pantalla nunca llega a 60 % visible
+const io2 = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) reveal(e.target); }),{root:main,threshold:.15});
+slides.forEach(s=>io2.observe(s));
+main.addEventListener("scroll",()=>tip.classList.remove("on"),{passive:true});
+addEventListener("beforeprint",()=>slides.forEach(s=>reveal(s,true)));
 </script>
 </body>
 </html>
