@@ -1,242 +1,74 @@
 <!doctype html>
 
-<html lang="es" data-theme="glass">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Indicadores de Prácticas y Pasantías · Gestión Cultural y Comunicativa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@400;500;700&family=Ancizar+Serif:wght@600;700&display=swap">
 <style>
-  /* Los nombres --cafe/--azul/--azul-claro/--rojo son ranuras de color: cada tema les da su propio valor. */
+  /* Tema institucional UNAL. --cafe/--azul/--azul-claro/--rojo son ranuras históricas: aquí valen verdes y rojo. */
   :root{
-    --cafe:#7B4A2D; --azul:#4A90C4; --azul-claro:#89C4E1; --rojo:#C0392B;
-    --on1:#fff; --on2:#fff; --on3:#2C1810;
-    --bg:#F5EDD8; --bg-img:none; --surface:#fff; --hole:#fff; --track:#F5EDD8; --line:#d3c8b2;
-    --texto:#2C1810; --muted:#7D5C44; --h2:var(--cafe);
-    --hdr-bg:#7B4A2D; --hdr-fg:#fff; --ftr-bg:#E8E0D0;
-    --radius:12px; --card-bd:0 solid transparent; --kpi-bar:6px; --blur:none; --h-weight:700; --h-track:0;
+    --cafe:#008B45; --azul:#006B35; --azul-claro:#7BC99A; --rojo:#B7280F; --oro:#FD585D; --verde-oscuro:#1B1D48; /* coral y azul noche de la plantilla 160 años */
+    --on3:#0F2518;
+    --bg:#F2F6F3; --surface:#fff; --track:#D8E8DD; --line:#B0CCBA;
+    --texto:#0F2518; --muted:#3E6249;
+    --radius:8px; --hh:76px; --fh:68px;
     --serif:"Ancizar Serif",Georgia,serif; --sans:"Ancizar Sans",Calibri,"Segoe UI",Arial,sans-serif;
-    --hh:68px; --fh:56px;
   }
-  /* Editorial oscuro */
-  html[data-theme="editorial"]{
-    --cafe:#E0953F; --azul:#8A9A8F; --azul-claro:#CDBFA4; --rojo:#E5604D;
-    --on1:#1a1209; --on2:#14120f; --on3:#14120f;
-    --bg:#0F0E0C; --surface:#171512; --hole:#171512; --track:#26231e; --line:#2d2a24;
-    --texto:#F2EBDD; --muted:#A39A89; --h2:#F2EBDD;
-    --hdr-bg:#0F0E0C; --hdr-fg:#F2EBDD; --ftr-bg:#0F0E0C;
-    --radius:4px; --card-bd:1px solid var(--line); --kpi-bar:2px; --h-weight:400; --h-track:-.01em;
-    --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
-  }
-  /* Suizo claro */
-  html[data-theme="suizo"]{
-    --cafe:#1F3BFF; --azul:#0A0A0A; --azul-claro:#B9C1FF; --rojo:#FF3B1F;
-    --on1:#fff; --on2:#fff; --on3:#0A0A0A;
-    --bg:#F4F2EC; --surface:#fff; --hole:#fff; --track:#E6E3DA; --line:#0A0A0A;
-    --texto:#0A0A0A; --muted:#5C5C57; --h2:#0A0A0A;
-    --hdr-bg:#F4F2EC; --hdr-fg:#0A0A0A; --ftr-bg:#F4F2EC;
-    --radius:0px; --card-bd:1px solid #0A0A0A; --kpi-bar:5px; --h-weight:700; --h-track:-.035em;
-    --serif:"Space Grotesk",system-ui,sans-serif; --sans:"Inter",system-ui,sans-serif;
-  }
-  /* Glass y gradientes */
-  html[data-theme="glass"]{
-    --cafe:#7C8CFF; --azul:#34D3C0; --azul-claro:#C3CBFF; --rojo:#FF6B8A;
-    --on1:#0B1020; --on2:#0B1020; --on3:#0B1020;
-    --bg:#0B1020;
-    --bg-img:radial-gradient(60% 50% at 15% 10%,rgba(124,140,255,.35),transparent),radial-gradient(50% 45% at 90% 85%,rgba(52,211,192,.25),transparent),radial-gradient(40% 40% at 80% 5%,rgba(255,107,138,.18),transparent);
-    --surface:rgba(255,255,255,.07); --hole:#151b34; --track:rgba(255,255,255,.1); --line:rgba(255,255,255,.14);
-    --texto:#EAF0FF; --muted:#9AA7C7; --h2:#EAF0FF;
-    --hdr-bg:rgba(11,16,32,.55); --hdr-fg:#EAF0FF; --ftr-bg:rgba(11,16,32,.55);
-    --radius:18px; --card-bd:1px solid var(--line); --kpi-bar:3px; --blur:blur(14px); --h-weight:600; --h-track:-.02em;
-    --serif:"Sora",system-ui,sans-serif; --sans:"Inter",system-ui,sans-serif;
-  }
-  /* UNAL institucional */
-  html[data-theme="unal"]{
-    --cafe:#008B45;--azul:#006B35;--azul-claro:#7BC99A;--rojo:#B7280F;
-    --on1:#fff;--on2:#fff;--on3:#0F2518;
-    --bg:#F2F6F3;--surface:#fff;--hole:#fff;--track:#D8E8DD;--line:#B0CCBA;
-    --texto:#0F2518;--muted:#3E6249;--h2:#006B35;
-    --hdr-bg:#006B35;--hdr-fg:#fff;--ftr-bg:#006B35;
-    --radius:6px;--card-bd:0 solid transparent;--kpi-bar:5px;--blur:none;
-    --h-weight:700;--h-track:-.01em;
-    --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,sans-serif;
-    --hh:76px;--fh:52px;
-  }
-
-  /* ═══════════════════════════════════════════
-     LAYOUTS ESTRUCTURALES POR TEMA
-  ═══════════════════════════════════════════ */
-
-  /* EDITORIAL — revista: título en columna izquierda, contenido a la derecha */
-  html[data-theme="editorial"]{--hh:52px;--fh:40px}
-  html[data-theme="editorial"] header.top{
-    justify-content:flex-start;padding:0 clamp(18px,5vw,60px);
-    background:var(--bg);border-bottom:2px solid var(--cafe);
-  }
-  html[data-theme="editorial"] header.top h1{
-    font-size:clamp(10px,1.1vw,13px);letter-spacing:.22em;
-    text-transform:uppercase;font-weight:400;font-family:var(--sans);
-  }
-  html[data-theme="editorial"] header.top small{display:none}
-  html[data-theme="editorial"] footer.bottom{
-    background:var(--bg);border-top:2px solid var(--cafe);font-size:11px;
-  }
-  html[data-theme="editorial"] section.slide{
-    display:grid;
-    grid-template-columns:clamp(160px,25%,280px) 1fr;
-    gap:0 clamp(24px,4vw,52px);
-    padding:clamp(28px,4vw,52px) clamp(24px,5vw,64px);
-    align-content:center;align-items:start;
-  }
-  html[data-theme="editorial"] section.slide>h2{
-    grid-column:1;grid-row:1/99;
-    font-size:clamp(20px,2.4vw,30px);
-    padding-right:clamp(16px,2vw,28px);
-    border-right:1px solid var(--line);
-    align-self:center;color:var(--cafe);
-  }
-  html[data-theme="editorial"] section.slide>.lead{
-    grid-column:2;grid-row:1;
-    font-size:clamp(14px,1.5vw,18px);color:var(--texto);
-    border-bottom:1px solid var(--line);padding-bottom:14px;
-  }
-  html[data-theme="editorial"] section.slide>*:not(h2):not(.lead){grid-column:2}
-  html[data-theme="editorial"] .kpi{
-    border-left:none;border-top:var(--kpi-bar) solid var(--azul);border-radius:0;
-  }
-  html[data-theme="editorial"] .kpi.cafe{border-top-color:var(--cafe)}
-  html[data-theme="editorial"] .kpi.rojo{border-top-color:var(--rojo)}
-  html[data-theme="editorial"] .kpi.claro{border-top-color:var(--azul-claro)}
-  html[data-theme="editorial"] .card{border-radius:0}
-  html[data-theme="editorial"] .alert{border-radius:0;border:none;border-left:4px solid var(--rojo)}
-  html[data-theme="editorial"] .nav{display:none}
-  @media(max-width:700px){
-    html[data-theme="editorial"] section.slide{grid-template-columns:1fr}
-    html[data-theme="editorial"] section.slide>h2{
-      grid-row:auto;border-right:none;
-      border-bottom:1px solid var(--line);padding-right:0;padding-bottom:10px;
-    }
-    html[data-theme="editorial"] section.slide>.lead,
-    html[data-theme="editorial"] section.slide>*:not(h2):not(.lead){grid-column:1}
-  }
-
-  /* SUIZO — Swiss/Müller-Brockmann: título masivo en mayúsculas + regla */
-  html[data-theme="suizo"]{--hh:44px;--fh:44px}
-  html[data-theme="suizo"] header.top{
-    justify-content:flex-start;padding:0 clamp(18px,5vw,64px);
-    background:var(--bg);border-bottom:3px solid var(--cafe);
-  }
-  html[data-theme="suizo"] header.top h1{
-    font-size:clamp(11px,1.2vw,14px);text-transform:uppercase;
-    letter-spacing:.28em;font-weight:700;font-family:var(--sans);
-  }
-  html[data-theme="suizo"] header.top small{display:none}
-  html[data-theme="suizo"] footer.bottom{background:var(--bg);border-top:3px solid var(--cafe)}
-  html[data-theme="suizo"] section.slide{
-    gap:4px;justify-content:flex-start;padding-top:clamp(20px,3vw,44px);
-  }
-  html[data-theme="suizo"] section.slide>h2{
-    font-size:clamp(34px,6.5vw,86px);text-transform:uppercase;
-    letter-spacing:-.04em;line-height:.95;
-    border-bottom:3px solid var(--cafe);padding-bottom:14px;margin-bottom:16px;
-    color:var(--texto);
-  }
-  html[data-theme="suizo"] section.slide>.lead{margin-bottom:12px}
-  html[data-theme="suizo"] .kpi{
-    border-left:none;border-top:var(--kpi-bar) solid var(--azul);
-    border-radius:0;background:transparent;border-right:1px solid var(--line);
-  }
-  html[data-theme="suizo"] .kpi.cafe{border-top-color:var(--cafe)}
-  html[data-theme="suizo"] .kpi.rojo{border-top-color:var(--rojo)}
-  html[data-theme="suizo"] .kpi.claro{border-top-color:var(--azul-claro)}
-  html[data-theme="suizo"] .kpi b{font-family:var(--sans)}
-  html[data-theme="suizo"] .card{border-radius:0}
-  html[data-theme="suizo"] .alert{border-radius:0}
-  html[data-theme="suizo"] .hbar .track,
-  html[data-theme="suizo"] .hbar .fill,
-  html[data-theme="suizo"] .pct,
-  html[data-theme="suizo"] .pct div{border-radius:0}
-  html[data-theme="suizo"] .nav button{border-radius:0;height:3px;width:10px}
-
-  /* GLASS — flotante centrado: contenido acotado + h2 con degradado neón */
-  html[data-theme="glass"] section.slide{max-width:1020px;margin-inline:auto;width:100%}
-  html[data-theme="glass"] section.slide>h2{
-    background:linear-gradient(125deg,var(--cafe) 0%,var(--azul) 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;
-  }
-  html[data-theme="glass"] .kpi{box-shadow:0 8px 32px rgba(0,0,0,.28)}
-  html[data-theme="glass"] .card{box-shadow:0 8px 32px rgba(0,0,0,.22)}
-  html[data-theme="glass"] .nav button{border-color:var(--azul)}
-  html[data-theme="glass"] .nav button.on{background:var(--azul);box-shadow:0 0 12px var(--azul)}
-
-  /* UNAL — institucional: banner verde-dorado + h2 con acento izquierdo */
-  html[data-theme="unal"] header.top{
-    padding:0 clamp(18px,5vw,64px);justify-content:space-between;
-    background:linear-gradient(90deg,var(--cafe) 0%,var(--azul) 100%);
-    border-bottom:4px solid #D4A017;
-  }
-  html[data-theme="unal"] header.top h1{text-align:left;font-size:clamp(15px,1.8vw,22px)}
-  html[data-theme="unal"] footer.bottom{
-    background:linear-gradient(90deg,var(--azul) 0%,#003D1E 100%);
-    color:#fff;border-top:4px solid #D4A017;
-  }
-  html[data-theme="unal"] footer.bottom .escuela,
-  html[data-theme="unal"] footer.bottom .unal{color:#fff}
-  html[data-theme="unal"] footer .escudo{background:#D4A017;color:#003D1E}
-  html[data-theme="unal"] #tema{
-    background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.35);
-  }
-  html[data-theme="unal"] #tema option{background:#006B35;color:#fff}
-  html[data-theme="unal"] section.slide>h2{
-    border-left:6px solid var(--cafe);padding-left:16px;color:var(--azul);
-  }
-  html[data-theme="unal"] .card{
-    border-left:3px solid var(--cafe);border-radius:0 var(--radius) var(--radius) 0;
-  }
-  html[data-theme="unal"] .alert{border:none;border-left:4px solid var(--rojo);border-radius:0}
 
   *{box-sizing:border-box}
   html,body{height:100%;margin:0}
-  body{background:var(--bg);background-image:var(--bg-img);background-attachment:fixed;color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.4;overflow:hidden}
+  body{background:var(--bg);color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.45;overflow:hidden}
+  ::selection{background:var(--oro);color:var(--verde-oscuro)}
+  :focus-visible{outline:3px solid var(--oro);outline-offset:2px}
 
-  header.top{position:fixed;inset:0 0 auto 0;height:var(--hh);background:var(--hdr-bg);color:var(--hdr-fg);border-bottom:1px solid var(--line);backdrop-filter:var(--blur);
-    display:flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;z-index:5}
-  header.top h1{font-family:var(--serif);font-size:clamp(18px,2.4vw,30px);margin:0;font-weight:var(--h-weight);letter-spacing:var(--h-track);line-height:1.15}
-  header.top small{display:block;font-family:var(--sans);font-weight:400;font-style:italic;font-size:clamp(12px,1.3vw,16px);opacity:.92;margin-top:2px}
+  header.top{position:fixed;inset:0 0 auto 0;height:var(--hh);z-index:5;display:flex;align-items:center;
+    background:linear-gradient(90deg,var(--cafe),var(--azul));color:#fff;border-bottom:4px solid var(--oro)}
+  header.top>.wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;max-width:1180px;margin-inline:auto;padding:0 clamp(18px,5vw,64px)}
+  .tag{flex:none;background:var(--oro);color:#fff;font-family:var(--sans);font-weight:700;font-size:clamp(18px,2vw,26px);letter-spacing:.04em;padding:6px 22px 7px;border-radius:10px 26px 4px 10px}
+  header.top h1{font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);margin:0;line-height:1.1;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+  header.top small{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(11px,1.1vw,13px);letter-spacing:.08em;text-transform:uppercase;color:#fff;opacity:.85;margin-top:6px}
+  #progress{position:absolute;left:0;bottom:-4px;height:4px;width:0;background:#fff;transition:width .2s ease-out}
 
-  footer.bottom{position:fixed;inset:auto 0 0 0;height:var(--fh);background:var(--ftr-bg);border-top:1px solid var(--line);backdrop-filter:var(--blur);
-    display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 clamp(14px,3vw,36px);z-index:5;font-size:12px;color:var(--texto)}
+  footer.bottom{position:fixed;inset:auto 0 0 0;height:var(--fh);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:0 clamp(14px,3vw,36px);font-size:12px;color:#fff;background:linear-gradient(90deg,var(--azul),var(--verde-oscuro));border-top:4px solid var(--oro)}
   footer .escuela{line-height:1.25}
+  footer .pos{font-variant-numeric:tabular-nums;font-weight:700;font-size:13px;letter-spacing:.04em}
   footer .unal{display:flex;align-items:center;gap:10px;font-weight:700;font-size:11px;line-height:1.15;letter-spacing:.02em}
-  footer .escudo{width:34px;height:38px;background:var(--cafe);color:var(--on1);display:grid;place-items:center;
-    font-family:var(--serif);font-size:20px;border-radius:4px 4px 17px 17px}
-  #tema{background:var(--surface);color:var(--texto);border:1px solid var(--line);border-radius:var(--radius);padding:4px 8px;font:inherit}
+  footer .unal img{height:56px;width:auto;display:block}
 
   main{position:fixed;top:var(--hh);bottom:var(--fh);left:0;right:0;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
-  section.slide{min-height:100%;scroll-snap-align:start;padding:clamp(18px,3vw,36px) clamp(18px,5vw,64px);display:flex;flex-direction:column;justify-content:center;gap:18px}
-  section.slide h2{font-family:var(--serif);font-size:clamp(22px,2.8vw,34px);margin:0;color:var(--h2);font-weight:var(--h-weight);letter-spacing:var(--h-track);text-wrap:balance}
-  .lead{text-wrap:pretty;margin:0;color:var(--muted);font-size:clamp(14px,1.5vw,18px);max-width:70ch}
+  section.slide{min-height:100%;scroll-snap-align:start;padding:clamp(20px,3vw,40px) clamp(18px,5vw,64px);display:flex;flex-direction:column;justify-content:center;gap:18px;max-width:1180px;margin-inline:auto;width:100%}
+  section.slide h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);margin:0;color:var(--azul);font-weight:700;letter-spacing:-.01em;line-height:1.15;text-wrap:balance}
+  section.slide h2::after{content:"";display:block;width:56px;height:4px;background:var(--oro);margin-top:10px}
+  /* patrón de íconos de la plantilla, solo en la portada */
+  #s1{position:relative;isolation:isolate}
+  #s1::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/patron-iconos.png) center/cover;opacity:.07;mask-image:linear-gradient(to top,#000,transparent 50%);-webkit-mask-image:linear-gradient(to top,#000,transparent 50%)}
+  #s1 .escudo-hero{position:absolute;top:clamp(16px,4vh,40px);right:clamp(18px,5vw,64px);height:clamp(120px,24vh,200px);width:auto}
+  .lead{text-wrap:pretty;margin:0;color:var(--muted);font-size:clamp(15px,1.5vw,18px);max-width:68ch}
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
-  .kpi,.card{background:var(--surface);border:var(--card-bd);backdrop-filter:var(--blur)}
-  .kpi{border-radius:var(--radius);padding:16px 18px;border-left:var(--kpi-bar) solid var(--azul)}
-  .kpi.cafe{border-left-color:var(--cafe)} .kpi.rojo{border-left-color:var(--rojo)} .kpi.claro{border-left-color:var(--azul-claro)}
-  .kpi b{display:block;font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1;color:var(--texto);font-weight:var(--h-weight);letter-spacing:var(--h-track);font-variant-numeric:tabular-nums}
-  .kpi span{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+  .kpi,.card{background:var(--surface);border:1px solid var(--line)}
+  .kpi{border-radius:var(--radius);padding:16px 18px}
+  .kpi b{display:block;font-family:var(--serif);font-size:clamp(32px,4vw,52px);line-height:1;color:var(--azul);font-weight:700;font-variant-numeric:tabular-nums}
+  .kpi span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+  .kpi.cafe{background:var(--azul);border-color:var(--azul)} .kpi.cafe b,.kpi.cafe span{color:#fff}
+  .kpi.rojo b{color:var(--rojo)}
 
   .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:stretch}
   .card{border-radius:var(--radius);padding:18px 20px}
-  .card h3{margin:0 0 12px;font-size:16px;color:var(--texto)}
-  .card p.note{margin:12px 0 0;font-size:13px;color:var(--muted)}
+  .card h3{margin:0 0 12px;font-size:16px;color:var(--azul)}
+  .card p.note{margin:12px 0 0;font-size:14px;color:var(--muted)}
 
   /* columnas apiladas */
   .cols{display:flex;align-items:flex-end;justify-content:space-around;gap:16px;height:260px;padding-top:8px}
   .col{flex:1;max-width:130px;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
-  .col .stack{width:100%;display:flex;flex-direction:column-reverse;border-radius:calc(var(--radius)/2) calc(var(--radius)/2) 0 0;overflow:hidden}
+  .col .stack{width:100%;display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden}
   .seg{display:grid;place-items:center;font-weight:700;font-size:14px;min-height:0}
-  .seg.a{background:var(--cafe);color:var(--on1)} .seg.b{background:var(--azul);color:var(--on2)}
+  .seg.a{background:var(--cafe);color:#fff} .seg.b{background:var(--azul-claro);color:var(--on3)}
   .col .tot{font-weight:700;font-size:18px;margin-bottom:4px}
   .col .lab{margin-top:8px;font-size:13px;color:var(--muted);text-align:center}
   .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;margin-top:12px}
@@ -244,68 +76,78 @@
 
   /* barras horizontales */
   .hbar{display:grid;grid-template-columns:minmax(110px,32%) 1fr 38px;align-items:center;gap:10px;margin:9px 0;font-size:14px}
-  .hbar .track{background:var(--track);border-radius:calc(var(--radius)/2);height:22px;overflow:hidden}
-  .hbar .fill{height:100%;background:var(--azul);border-radius:calc(var(--radius)/2)}
+  .hbar .track{background:var(--track);border-radius:4px;height:22px;overflow:hidden}
+  .hbar .fill{height:100%;background:var(--azul);border-radius:4px}
   .hbar .fill.cafe{background:var(--cafe)} .hbar .fill.claro{background:var(--azul-claro)} .hbar .fill.rojo{background:var(--rojo)}
-  .hbar .v{font-weight:700;text-align:right}
+  .hbar .v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 
-  /* 100% interna/externa */
-  .pct{display:flex;height:34px;border-radius:calc(var(--radius)/1.5);overflow:hidden;margin:4px 0 2px}
+  /* interno / externo */
+  .pct{display:flex;height:34px;border-radius:6px;overflow:hidden;margin:4px 0 2px}
   .pct div{display:grid;place-items:center;font-weight:700;font-size:13px}
-  .pct .i{background:var(--cafe);color:var(--on1)} .pct .e{background:var(--azul-claro);color:var(--on3)}
+  .pct .i{background:var(--cafe);color:#fff} .pct .e{background:var(--azul-claro);color:var(--on3)}
   .row-lab{font-size:13px;color:var(--muted);margin-top:12px}
 
   /* dona */
   .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
   .donut{width:170px;height:170px;border-radius:50%;position:relative;flex:none}
-  .donut::after{content:attr(data-c);position:absolute;inset:34px;background:var(--hole);border-radius:50%;display:grid;place-items:center;
-    font-family:var(--serif);font-size:28px;font-weight:var(--h-weight);text-align:center;line-height:1}
+  .donut::after{content:attr(data-c);position:absolute;inset:34px;background:var(--surface);border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:28px;font-weight:700;color:var(--azul);line-height:1}
 
-  .alert{border:2px solid var(--rojo);background:var(--surface);backdrop-filter:var(--blur);border-radius:var(--radius);padding:16px 18px}
+  .alert{border:1px solid var(--rojo);background:#FDF1EE;border-radius:var(--radius);padding:16px 18px}
   .alert h3{margin:0 0 8px;color:var(--rojo);font-size:16px}
-  .alert ul,.card ul{margin:0;padding-left:20px} .alert li,.card li{margin:5px 0;font-size:14px}
+  .alert ul,.card ul{margin:0;padding-left:20px} .alert li,.card li{margin:6px 0;font-size:14px}
   .pill{display:inline-block;background:var(--azul-claro);color:var(--on3);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700}
-  .fuente{font-size:12px;color:var(--muted)}
 
-  .nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:6}
-  .nav button{width:12px;height:12px;border-radius:50%;border:2px solid var(--cafe);background:transparent;padding:0;cursor:pointer}
-  .nav button.on{background:var(--cafe)}
-  .nav button:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+  /* navegación lateral: el área táctil es de 28px, el punto visible de 12px */
+  .nav{position:fixed;right:6px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;z-index:6}
+  .nav button{width:28px;height:28px;border:0;background:transparent;padding:0;cursor:pointer;position:relative}
+  .nav button::before{content:"";position:absolute;inset:8px;border-radius:50%;border:2px solid var(--azul);transition:background .15s}
+  .nav button:hover::before{background:var(--azul-claro)}
+  .nav button[aria-current]::before{background:var(--azul)}
+  .nav button::after{content:attr(data-t);position:absolute;right:30px;top:50%;transform:translateY(-50%);white-space:nowrap;background:var(--verde-oscuro);color:#fff;
+    font-size:12px;padding:4px 8px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .15s}
+  .nav button:hover::after,.nav button:focus-visible::after{opacity:1}
 
   @media (max-width:900px){ main{scroll-snap-type:y proximity} }
-  @media (max-width:600px){ .kpis{grid-template-columns:1fr 1fr} .kpi b{font-size:30px} .nav,#tema{display:none} .hbar{grid-template-columns:1fr 36px} .hbar .track{grid-column:1/-1;order:3} }
-  @media print{ body{overflow:visible} main,header.top,footer.bottom,.nav{position:static} #tema{display:none} section.slide{min-height:auto;break-after:page} }
+  @media (max-width:900px){ #s1 .escudo-hero{display:none} }
+  @media (max-width:600px){ .kpis{grid-template-columns:1fr 1fr} .kpi b{font-size:30px} .nav,header.top small{display:none} footer .escuela{font-size:11px} .hbar{grid-template-columns:1fr 36px} .hbar .track{grid-column:1/-1;order:3} }
+  @media (prefers-reduced-motion:reduce){ main{scroll-behavior:auto} #progress{transition:none} }
+  @media print{ body{overflow:visible} main,header.top,footer.bottom,.nav{position:static} #progress{display:none} section.slide{min-height:auto;break-after:page} }
 </style>
 </head>
 <body>
 
 <header class="top">
-  <div>
-    <h1>Indicadores de Prácticas y Pasantías</h1>
-    <small>Gestión Cultural y Comunicativa · Periodos 2025-2S a 2026-2S</small>
+  <div class="wrap">
+    <div>
+      <h1>Indicadores de Prácticas y Pasantías</h1>
+      <small>Gestión Cultural y Comunicativa · Periodos 2025-2S a 2026-2S</small>
+    </div>
+    <span class="tag" aria-hidden="true">UNAL</span>
   </div>
+  <div id="progress" aria-hidden="true"></div>
 </header>
 
 <main id="main">
 
   <!-- 1. Portada / resumen -->
   <section class="slide" id="s1">
-    <h2>Panorama general · Gestión Cultural y Comunicativa</h2>
+    <img class="escudo-hero" src="assets/escudo-unal-coral.png" alt="Escudo de la Universidad Nacional de Colombia">
+    <h2>Panorama general</h2>
     <p class="lead">Consolidado de los registros de prácticas y trabajos de grado en modalidad pasantía de la sede La Paz.</p>
     <div class="kpis" id="kpis"></div>
-    <!-- <p class="fuente">Fuente: hojas de seguimiento 2025-2S (pasantías y prácticas), 2026-1S (externos e internos) y 2026-2S (externos e internos). Datos agregados, sin información personal.</p> -->
   </section>
 
   <!-- 2. Evolución -->
   <section class="slide" id="s2">
     <h2>Evolución por periodo y modalidad</h2>
+    <p class="lead">Pasamos de 28 estudiantes en 2025-2S a 35 en 2026-1S y 34 en 2026-2S.</p>
     <div class="grid2">
       <div class="card">
         <h3>Estudiantes registrados por periodo</h3>
         <div class="cols" id="cols"></div>
         <div class="legend">
           <span><i style="background:var(--cafe)"></i>Prácticas</span>
-          <span><i style="background:var(--azul)"></i>Pasantías / trabajo de grado</span>
+          <span><i style="background:var(--azul-claro)"></i>Pasantías / trabajo de grado</span>
         </div>
         <p class="note">2026-2S agrupa pasantías (10), monografía (1) y participación en proyectos de investigación (1) tras los cambios de modalidad aprobados.</p>
       </div>
@@ -316,7 +158,7 @@
           <span><i style="background:var(--cafe)"></i>Interno (UNAL)</span>
           <span><i style="background:var(--azul-claro)"></i>Externo</span>
         </div>
-        <p class="note">En 2025-2S las pasantías se contaron por dependencia/entidad; en 2026-1S, por mecanismo de vinculación.</p>
+        <p class="note">En 2025-2S las pasantías se contaron por dependencia/entidad; en 2026-1S, por mecanismo de vinculación. En 2025-2S, 3 pasantías registran cambios (1 de escenario y 2 de modalidad).</p>
       </div>
     </div>
   </section>
@@ -329,7 +171,7 @@
       <div class="card">
         <h3>2026-1S · Distribución</h3>
         <div class="donut-wrap">
-          <div class="donut" id="donut" data-c="35"></div>
+          <div class="donut" id="donut" data-c="35" role="img" aria-label="35 vinculaciones: 18 Resolución 1142, 16 Convenio P&P, 1 contrato de aprendizaje"></div>
           <div id="donutLeg"></div>
         </div>
       </div>
@@ -371,7 +213,7 @@
         <h3>Casos que no culminaron</h3>
         <ul>
           <li><b>2025-2S:</b> 1 práctica cancelada sin aprobación (estudiante apeló) y 1 abandono sin cancelación formal (nota 0).</li>
-          <li><b>2026-1S:</b> 2 cancelaciones (1 trabajo de grado y 1 práctica).</li>
+          <li><b>2026-1S:</b> 2 solicitudes de cancelación (1 trabajo de grado y 1 práctica).</li>
           <li><b>2026-2S:</b> 2 estudiantes no responden a las comunicaciones y no han firmado el acta de compromiso; 1 no comparte documentos.</li>
         </ul>
       </div>
@@ -401,8 +243,8 @@
 
 <footer class="bottom">
   <div class="escuela">Dirección Escuela de Pregrados<br>Sede de La Paz</div>
-  <select id="tema" aria-label="Diseño"><option value="editorial">Editorial oscuro</option><option value="suizo">Suizo claro</option><option value="glass">Glass</option><option value="unal">UNAL</option></select>
-  <div class="unal"><div>UNIVERSIDAD<br>NACIONAL<br>DE COLOMBIA</div><div class="escudo" aria-hidden="true">U</div></div>
+  <div class="pos" id="pos" aria-live="polite"></div>
+  <div class="unal"><img src="assets/160-blanco.png" alt="Universidad Nacional de Colombia, 160 años, 1867-2027"></div>
 </footer>
 
 <script>
@@ -425,8 +267,8 @@ const hbar = (l,v,max,c="") => `<div class="hbar"><span>${l}</span><div class="t
 $("kpis").innerHTML =
   kpi(total,"registros en 3 periodos","cafe") +
   kpi(periodos.reduce((s,x)=>s+x.practicas,0),"prácticas","") +
-  kpi(periodos.reduce((s,x)=>s+x.pasantias,0),"pasantías / trabajos de grado","claro") +
-  kpi("4,75","nota promedio (49 notas)","cafe") +
+  kpi(periodos.reduce((s,x)=>s+x.pasantias,0),"pasantías / trabajos de grado","") +
+  kpi("4,75","nota promedio (49 notas)","") +
   kpi(4,"casos que no culminaron","rojo");
 
 /* ---------- Columnas apiladas ---------- */
@@ -444,7 +286,7 @@ $("cols").innerHTML = periodos.map(x=>{
 $("pct").innerHTML = periodos.map(x=>{
   const t = x.interno+x.externo, i = Math.round(x.interno/t*100);
   return `<div class="row-lab">${x.p} · ${t} estudiantes</div>
-    <div class="pct"><div class="i" style="width:${x.interno/t*100}%">${i}%</div><div class="e" style="width:${x.externo/t*100}%">${100-i}%</div></div>`;
+    <div class="pct"><div class="i" style="width:${x.interno/t*100}%">${i} %</div><div class="e" style="width:${x.externo/t*100}%">${100-i} %</div></div>`;
 }).join("");
 
 /* ---------- Vinculación ---------- */
@@ -471,40 +313,41 @@ $("cierre").innerHTML =
 $("kpis2").innerHTML =
   kpi(34,"estudiantes registrados","cafe") +
   kpi(15,"escenarios externos","") +
-  kpi(19,"escenarios internos","claro") +
+  kpi(19,"escenarios internos","") +
   kpi("19/19","reportados a Dirección Académica","") +
-  kpi("14/19","registros internos confirmados","cafe");
+  kpi("14/19","registros internos confirmados","");
 $("dep").innerHTML = dep.map(([l,v])=>hbar(l,v,7,"claro")).join("");
 $("estado").innerHTML =
   hbar("Registros internos confirmados",14,19,"cafe") +
   hbar("Registros internos pendientes",5,19,"rojo") +
-  hbar("Tutor por indicar",3,19,"rojo") +
+  hbar("Tutor por indicar",1,19,"rojo") +
   hbar("Actas de compromiso externas pendientes",2,15,"rojo");
-
-/* ---------- Tema: <html data-theme="..."> o ?tema=editorial|suizo|glass|unal ---------- */
-const sel = $("tema"), root = document.documentElement;
-const t0 = new URLSearchParams(location.search).get("tema");
-if([...sel.options].some(o=>o.value===t0)) root.dataset.theme = t0;
-sel.value = root.dataset.theme;
-sel.onchange = ()=>{ root.dataset.theme = sel.value; history.replaceState(null,"","?tema="+sel.value); };
 
 /* ---------- Navegación por diapositivas ---------- */
 const main = $("main"), slides = [...document.querySelectorAll(".slide")], nav = $("nav");
+const go = i => slides[Math.max(0,Math.min(i,slides.length-1))].scrollIntoView({behavior:"smooth"});
 slides.forEach((s,i)=>{
-  const b = document.createElement("button");
-  b.setAttribute("aria-label","Ir a la diapositiva "+(i+1));
-  b.onclick = ()=>s.scrollIntoView({behavior:"smooth"});
+  const t = s.querySelector("h2").textContent, b = document.createElement("button");
+  b.setAttribute("aria-label",`Ir a: ${t}`); b.dataset.t = t;
+  b.onclick = ()=>go(i);
   nav.appendChild(b);
 });
 const dots = [...nav.children];
+let cur = 0;
 const io = new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){ dots.forEach(d=>d.classList.remove("on")); dots[slides.indexOf(e.target)].classList.add("on"); }
+  if(!e.isIntersecting) return;
+  cur = slides.indexOf(e.target);
+  dots.forEach((d,i)=>i===cur ? d.setAttribute("aria-current","true") : d.removeAttribute("aria-current"));
+  $("pos").textContent = `${cur+1} / ${slides.length}`;
 }),{root:main,threshold:.6});
 slides.forEach(s=>io.observe(s));
+main.addEventListener("scroll",()=>{ $("progress").style.width = main.scrollTop/Math.max(1,main.scrollHeight-main.clientHeight)*100+"%"; },{passive:true});
 document.addEventListener("keydown",e=>{
-  const cur = dots.findIndex(d=>d.classList.contains("on"));
-  if(["ArrowDown","ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();slides[Math.min(cur+1,slides.length-1)].scrollIntoView({behavior:"smooth"});}
-  if(["ArrowUp","ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();slides[Math.max(cur-1,0)].scrollIntoView({behavior:"smooth"});}
+  if(e.altKey||e.ctrlKey||e.metaKey) return;
+  if(["ArrowDown","ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(["ArrowUp","ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==="Home"){e.preventDefault();go(0);}
+  if(e.key==="End"){e.preventDefault();go(slides.length-1);}
 });
 </script>
 </body>
