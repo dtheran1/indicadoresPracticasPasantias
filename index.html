@@ -144,7 +144,7 @@
   <div class="wrap">
     <div>
       <h1>Indicadores de Prácticas y Pasantías</h1>
-      <small>Gestión Cultural y Comunicativa · Periodos 2025-2S a 2026-2S</small>
+      <small>Gestión Cultural y Comunicativa · Períodos 2025-2S a 2026-2S</small>
     </div>
     <span class="tag" aria-hidden="true">UNAL</span>
   </div>
@@ -163,11 +163,11 @@
 
   <!-- 2. Evolución -->
   <section class="slide" id="s2">
-    <h2>Evolución por periodo y modalidad</h2>
+    <h2>Evolución por período y modalidad</h2>
     <p class="lead">Pasamos de 28 estudiantes en 2025-2S a 35 en 2026-1S y 34 en 2026-2S.</p>
     <div class="grid2">
       <div class="card">
-        <h3>Estudiantes registrados por periodo</h3>
+        <h3>Estudiantes registrados por período</h3>
         <div class="cols" id="cols"></div>
         <div class="legend">
           <span><i style="background:var(--cafe)"></i>Prácticas</span>
@@ -191,7 +191,7 @@
   <section class="slide" id="s3">
     <img class="remate" src="assets/remate-jaguar.png" alt="">
     <h2>Mecanismos de vinculación</h2>
-    <p class="lead">Cómo se formalizó la vinculación de los 35 estudiantes del periodo 2026-1S.</p>
+    <p class="lead">Cómo se formalizó la vinculación de los 35 estudiantes del período 2026-1S.</p>
     <div class="grid2">
       <div class="card">
         <h3>2026-1S · Distribución</h3>
@@ -234,7 +234,7 @@
       <div class="card">
         <h3>Prácticas y pasantías culminadas con nota</h3>
         <div id="cierre"></div>
-        <p class="note">Culminación = registros con nota final válida sobre el total del periodo (prácticas en 2025-2S; todas las modalidades en 2026-1S).</p>
+        <p class="note">Culminación = registros con nota final válida sobre el total del período (prácticas en 2025-2S; todas las modalidades en 2026-1S).</p>
       </div>
       <div class="alert">
         <h3>Casos que no culminaron</h3>
@@ -250,7 +250,7 @@
   <!-- 6. 2026-2S -->
   <section class="slide" id="s6">
     <img class="remate" src="assets/remate-edificio2.png" alt="" style="height:clamp(40px,8vh,72px)">
-    <h2>Periodo en curso · 2026-2S</h2>
+    <h2>Período en curso · 2026-2S</h2>
     <div class="kpis" id="kpis2"></div>
     <div class="grid2">
       <div class="card">
@@ -278,12 +278,12 @@
 
 <script>
 /* ---------- Datos (agregados desde las 5 hojas) ---------- */
-const periodos = [
+const períodos = [
   {p:"2025-2S", practicas:18, pasantias:10, interno:17, externo:11},
   {p:"2026-1S", practicas:25, pasantias:10, interno:18, externo:17},
   {p:"2026-2S", practicas:22, pasantias:12, interno:19, externo:15}
 ];
-const total = periodos.reduce((s,x)=>s+x.practicas+x.pasantias,0);          // 97
+const total = períodos.reduce((s,x)=>s+x.practicas+x.pasantias,0);          // 97
 const vinc  = [["Resolución 1142",18,"cafe"],["Convenio P&P",16,""],["Contrato de aprendizaje",1,"claro"]];
 const notas = [["5,0",23,"cafe"],["4,5 – 4,9",20,""],["4,0 – 4,4",4,"claro"],["Menor a 4,0",2,"rojo"]];
 const dep   = [["Biblioteca",7],["Bienestar · Salud",5],["Semillero PHI",4],["Lab. Comunicación Audiovisual",2],["Bienestar · Acompañamiento",1]];
@@ -296,17 +296,17 @@ let nb = 0; // escalona la entrada de las barras
 const hbar = (l,v,max,c="",tot=max) => `<div class="hbar" data-tip="${esc(l)}: ${v} de ${tot} (${pc(v,tot)})" style="--d:${(nb++%6)*.08}s"><span>${l}</span><div class="track"><div class="fill ${c}" style="width:${v/max*100}%"></div></div><span class="v">${v}</span></div>`;
 
 /* ---------- KPIs ---------- */
-const sumP = k => periodos.map(x=>x[k]).join(" · ");
+const sumP = k => períodos.map(x=>x[k]).join(" · ");
 $("kpis").innerHTML =
-  kpi(total,"registros en 3 periodos","cafe","Por periodo: "+periodos.map(x=>`${x.p}: ${x.practicas+x.pasantias}`).join(" · ")) +
-  kpi(periodos.reduce((s,x)=>s+x.practicas,0),"prácticas","","2025-2S, 2026-1S y 2026-2S: "+sumP("practicas")) +
-  kpi(periodos.reduce((s,x)=>s+x.pasantias,0),"pasantías / trabajos de grado","","2025-2S, 2026-1S y 2026-2S: "+sumP("pasantias")) +
+  kpi(total,"registros en 3 períodos","cafe","Por período: "+períodos.map(x=>`${x.p}: ${x.practicas+x.pasantias}`).join(" · ")) +
+  kpi(períodos.reduce((s,x)=>s+x.practicas,0),"prácticas","","2025-2S, 2026-1S y 2026-2S: "+sumP("practicas")) +
+  kpi(períodos.reduce((s,x)=>s+x.pasantias,0),"pasantías / trabajos de grado","","2025-2S, 2026-1S y 2026-2S: "+sumP("pasantias")) +
   kpi("4,75","nota promedio (49 notas)","","16 notas de 2025-2S (4,86) y 33 de 2026-1S (4,69)") +
   kpi(4,"casos que no culminaron","rojo","2025-2S: 2 · 2026-1S: 2 (solicitudes de cancelación)");
 
 /* ---------- Columnas apiladas ---------- */
-const maxT = Math.max(...periodos.map(x=>x.practicas+x.pasantias));
-$("cols").innerHTML = periodos.map((x,i)=>{
+const maxT = Math.max(...períodos.map(x=>x.practicas+x.pasantias));
+$("cols").innerHTML = períodos.map((x,i)=>{
   const t = x.practicas+x.pasantias, H = 190;
   return `<div class="col" style="--d:${i*.15}s"><div class="tot">${t}</div>
     <div class="stack" style="height:${t/maxT*H}px">
@@ -316,7 +316,7 @@ $("cols").innerHTML = periodos.map((x,i)=>{
 }).join("");
 
 /* ---------- Interno / externo ---------- */
-$("pct").innerHTML = periodos.map((x,i)=>{
+$("pct").innerHTML = períodos.map((x,i)=>{
   const t = x.interno+x.externo, i100 = Math.round(x.interno/t*100);
   return `<div class="row-lab">${x.p} · ${t} estudiantes</div>
     <div class="pct" style="--d:${i*.15}s"><div class="i" data-tip="${x.p} · interno (UNAL): ${x.interno} de ${t}" style="width:${x.interno/t*100}%">${i100} %</div><div class="e" data-tip="${x.p} · externo: ${x.externo} de ${t}" style="width:${x.externo/t*100}%">${100-i100} %</div></div>`;
@@ -360,8 +360,8 @@ $("cierre").innerHTML =
 /* ---------- 2026-2S ---------- */
 $("kpis2").innerHTML =
   kpi(34,"estudiantes registrados","cafe","22 prácticas y 12 pasantías / trabajos de grado") +
-  kpi(15,"escenarios externos","","44 % del periodo") +
-  kpi(19,"escenarios internos","","56 % del periodo") +
+  kpi(15,"escenarios externos","","44 % del período") +
+  kpi(19,"escenarios internos","","56 % del período") +
   kpi("19/19","reportados a Dirección Académica","") +
   kpi("14/19","registros internos confirmados","","5 registros internos pendientes de confirmar");
 $("dep").innerHTML = dep.map(([l,v])=>hbar(l,v,7,"claro",19)).join("");
